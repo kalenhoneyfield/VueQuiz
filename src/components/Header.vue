@@ -1,9 +1,16 @@
 <template>
   <div>
-    <b-nav tabs>
-      <b-nav-item disabled>Vue Quiz App</b-nav-item>
-      <b-nav-item disabled>Counter: {{ `${numCorrect}/${numTotal}` }} </b-nav-item>
-    </b-nav>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand>Vue Quiz App</b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item>Counter: {{ `${numCorrect}/${numTotal}` }} </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 

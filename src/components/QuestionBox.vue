@@ -12,7 +12,9 @@
           v-for="(answer, index) in shuffledAnswers"
           v-bind:key="index"
           v-on:click="selectAnswer(index)"
-          v-bind:class="answerClass(index)"
+          v-bind:variant="answerClass(index)"
+          v-on:mouseover="handleHover(index)"
+          v-on:mouseleave="handleHover(null)"
         >
           {{ answer }}
         </b-list-group-item>
@@ -44,6 +46,7 @@ export default {
       correctIndex: null,
       shuffledAnswers: [],
       answered: false,
+      isHovered: false,
     };
   },
   computed: {
@@ -78,12 +81,15 @@ export default {
     answerClass: function(index) {
       // let answerClass = ''
       return !this.answered && this.selectedIndex === index
-        ? 'selected'
+        ? 'info'
         : this.answered && this.correctIndex === index
-        ? 'correct'
+        ? 'success'
         : this.answered && this.selectedIndex === index && this.correctIndex !== index
-        ? 'incorrect'
+        ? 'danger'
         : '';
+    },
+    handleHover: function(index) {
+      this.isHovered = index;
     },
   },
   watch: {
@@ -108,8 +114,8 @@ export default {
   margin-bottom: 15px;
 }
 .list-group-item:hover {
-  background-color: brown;
-  color: thistle;
+  background-color: var(--info);
+  color: #ffffff;
   cursor: pointer;
 }
 .btn {
