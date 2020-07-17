@@ -19,17 +19,17 @@ export default {
   name: 'App',
   components: {
     Header,
-    QuestionBox
+    QuestionBox,
   },
   data() {
     return {
       questions: [],
-      index: 0
+      index: 0,
     };
   },
   mounted: function() {
     fetch('https://opentdb.com/api.php?amount=10&type=multiple', {
-      method: 'GET'
+      method: 'GET',
     })
       .then(response => {
         return response.json();
@@ -37,7 +37,7 @@ export default {
       .then(data => {
         this.questions = data.results;
       });
-  }
+  },
 };
 </script>
 
