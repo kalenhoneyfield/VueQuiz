@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-bind:numCorrect="numCorrect" v-bind:numTotal="numTotal" />
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
-          <QuestionBox />
+          <QuestionBox
+            v-bind:currentQuestion="questions[index]"
+            v-bind:next="next"
+            v-bind:increment="increment"
+            v-if="questions.length"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -25,7 +30,20 @@ export default {
     return {
       questions: [],
       index: 0,
+      numCorrect: 0,
+      numTotal: 0,
     };
+  },
+  methods: {
+    next: function() {
+      this.index++;
+    },
+    increment: function(isCorrect) {
+      if (isCorrect) {
+        this.numCorrect++;
+      }
+      this.numTotal++;
+    },
   },
   mounted: function() {
     fetch('https://opentdb.com/api.php?amount=10&type=multiple', {
