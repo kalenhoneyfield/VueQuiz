@@ -3,7 +3,7 @@
     <Header v-bind:numCorrect="numCorrect" v-bind:numTotal="numTotal" />
     <b-container class="bv-example-row">
       <b-row>
-        <b-col sm="6" offset="3">
+        <b-col sm="6" offset="0">
           <QuestionBox
             v-bind:currentQuestion="questions[index]"
             v-bind:next="next"
@@ -36,7 +36,13 @@ export default {
   },
   methods: {
     next: function() {
-      this.index++;
+      const idx = this.index + 1;
+      if (this.questions[idx]) {
+        this.index++;
+      } else {
+        this.getQuestions();
+        this.index = 0;
+      }
     },
     increment: function(isCorrect) {
       if (isCorrect) {
@@ -44,17 +50,20 @@ export default {
       }
       this.numTotal++;
     },
+    getQuestions: function() {
+      fetch('https://opentdb.com/api.php?amount=10&type=multiple', {
+        method: 'GET',
+      })
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.questions = data.results;
+        });
+    },
   },
   mounted: function() {
-    fetch('https://opentdb.com/api.php?amount=10&type=multiple', {
-      method: 'GET',
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.questions = data.results;
-      });
+    this.getQuestions();
   },
 };
 </script>
@@ -62,11 +71,12 @@ export default {
 <style>
 #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  font-family: 'Ranchers', cursive;
+  font-family: 'Pacifico', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
+  background-color: var(--dark);
 }
 </style>

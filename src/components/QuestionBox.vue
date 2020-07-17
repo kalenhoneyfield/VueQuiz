@@ -2,7 +2,7 @@
   <div>
     <b-jumbotron>
       <template v-slot:lead>
-        {{ currentQuestion.question }}
+        {{ currentQuestion.question | fixHTMLchars }}
       </template>
 
       <hr class="my-4" />
@@ -16,7 +16,7 @@
           v-on:mouseover="handleHover(index)"
           v-on:mouseleave="handleHover(null)"
         >
-          {{ answer }}
+          {{ answer | fixHTMLchars }}
         </b-list-group-item>
       </b-list-group>
 
@@ -26,13 +26,15 @@
         v-bind:disabled="selectedIndex === null || answered"
         >Submit</b-button
       >
-      <b-button variant="success" v-on:click="next">Next</b-button>
+      <b-button variant="success" v-on:click="next" v-bind:disabled="!answered">Next</b-button>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
+import { AllHtmlEntities } from 'html-entities';
+const entities = new AllHtmlEntities();
 
 export default {
   props: {
@@ -101,10 +103,11 @@ export default {
         this.shuffleAnswers();
       },
     },
-    // currentQuestion: function() {
-    //   this.selectedIndex = null;
-    //   this.shuffleAnswers();
-    // },
+  },
+  filters: {
+    fixHTMLchars: function(chars) {
+      return entities.decode(chars);
+    },
   },
 };
 </script>
