@@ -3,7 +3,7 @@
     <Header v-bind:numCorrect="numCorrect" v-bind:numTotal="numTotal" />
     <b-container class="bv-example-row">
       <b-row>
-        <b-col sm="6" offset="0">
+        <b-col lg="6" offset="0">
           <QuestionBox
             v-bind:currentQuestion="questions[index]"
             v-bind:next="next"
