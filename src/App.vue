@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import './components/bootswatch/bootstrap-cerulean.css';
 import Header from './components/Header';
 import QuestionBox from './components/QuestionBox';
 
@@ -71,7 +72,7 @@ export default {
 <style>
 #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  font-family: 'Pacifico', cursive;
+  /* font-family: 'Pacifico', cursive; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
