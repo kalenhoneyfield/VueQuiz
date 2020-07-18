@@ -2,6 +2,11 @@
   <div>
     <b-jumbotron>
       <template v-slot:lead>
+        <b-badge right v-bind:variant="difficultyVariant(currentQuestion.difficulty)">
+          {{ currentQuestion.difficulty }}
+        </b-badge>
+        <b-badge right variant="info">{{ currentQuestion.category }}</b-badge>
+        <br />
         {{ currentQuestion.question | fixHTMLchars }}
       </template>
 
@@ -87,6 +92,15 @@ export default {
         : this.answered && this.correctIndex === index
         ? 'success'
         : this.answered && this.selectedIndex === index && this.correctIndex !== index
+        ? 'danger'
+        : '';
+    },
+    difficultyVariant: function(diff) {
+      return diff === 'easy'
+        ? 'success'
+        : diff === 'medium'
+        ? 'warning'
+        : diff === 'hard'
         ? 'danger'
         : '';
     },
